@@ -270,17 +270,18 @@
 
 		var/num_bleeds = LAZYLEN(bleeding_limbs)
 
-		var/list/bleed_text
-	if(istype(dna) && istype(dna.species, /datum/species/beefman))
-		if(appears_dead)
-			bleed_text = list("<span class='deadsay'><B>The natural juices are visible in [t_his] open")
+		var/list/bleed_text = list()
+		var/mob/living/carbon/human/U = user
+		if(is_species(U,/datum/species/beefman))
+			if(appears_dead)
+				bleed_text = msg += "<B>The natural juices are visible in [t_his] open.\n"
+			else
+				bleed_text = msg += "<B>[t_His] natural juices are seeping from [t_his].\n"
 		else
-			bleed_text = list("<B>[t_His] natural juices are seeping from [t_his]")
-	else
-		if(appears_dead)
-			bleed_text = list("<span class='deadsay'><B>Blood is visible in [t_his] open")
-		else
-			bleed_text = list("<B>[t_He] [t_is] bleeding from [t_his]")
+			if(appears_dead)
+				bleed_text = msg += "<B>Blood is visible in [t_his] open.\n"
+			else
+				bleed_text = msg += "<B>[t_He] [t_is] bleeding from [t_his].\n"
 
 		switch(num_bleeds)
 			if(1 to 2)
